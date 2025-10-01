@@ -9,10 +9,11 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { MoreHorizontal, Copy, RefreshCw, Send, CheckCircle, AlertTriangle, Clock, XCircle, FileDown } from "lucide-react"
+import { MoreHorizontal, Copy, RefreshCw, Send, CheckCircle, AlertTriangle, Clock, XCircle, FileDown, PlusCircle, Server, Database, FolderOpen,Webhook } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { type Movement, type MovementStatus } from "@/app/lib/definitions"
 import { useToast } from "@/hooks/use-toast"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const mockMovements: Movement[] = [
   { id: "MVT-001", invoiceId: "INV-101", timestamp: new Date(), status: "Timbrada" },
@@ -130,32 +131,61 @@ export default function MovementsPage() {
       </Card>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <Card className="lg:col-span-1">
-          <CardHeader>
-            <CardTitle>Recepción de Facturas</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-4">
-            <div>
-              <Label htmlFor="webhook" className="text-muted-foreground">Endpoint Webhook</Label>
-              <div className="flex items-center gap-2">
-                <Input id="webhook" readOnly value={webhookUrl} />
-                <Button variant="outline" size="icon" onClick={() => copyToClipboard(webhookUrl)}>
-                  <Copy className="h-4 w-4" />
-                </Button>
-              </div>
-            </div>
-            <div className="grid grid-cols-3 gap-4 text-center">
-                <div className="space-y-1"><p className="text-2xl font-bold">15</p><p className="text-xs text-muted-foreground">En Cola</p></div>
-                <div className="space-y-1"><p className="text-2xl font-bold">120</p><p className="text-xs text-muted-foreground">Recibidas Hoy</p></div>
-                <div className="space-y-1"><p className="text-2xl font-bold text-destructive">2</p><p className="text-xs text-muted-foreground">Errores</p></div>
-            </div>
-             <p className="text-xs text-muted-foreground text-center pt-2">Última factura recibida: hace 2 minutos.</p>
-          </CardContent>
+        <Card className="lg:col-span-3">
+            <CardHeader>
+                <div className="flex justify-between items-center">
+                    <div>
+                        <CardTitle>Puntos de Recepción de Documentos</CardTitle>
+                        <CardDescription>Configure cómo su sistema recibe facturas de fuentes externas.</CardDescription>
+                    </div>
+                    <Button variant="outline"><PlusCircle className="mr-2 h-4 w-4" /> Nuevo Punto</Button>
+                </div>
+            </CardHeader>
+            <CardContent>
+                <Tabs defaultValue="webhook">
+                    <TabsList className="grid w-full grid-cols-5">
+                        <TabsTrigger value="webhook"><Webhook className="mr-2"/> Webhook</TabsTrigger>
+                        <TabsTrigger value="api"><Server className="mr-2"/> API Externa</TabsTrigger>
+                        <TabsTrigger value="db"><Database className="mr-2"/> Base de Datos</TabsTrigger>
+                        <TabsTrigger value="folder"><FolderOpen className="mr-2"/> Carpeta/Archivos</TabsTrigger>
+                        <TabsTrigger value="ftp">FTP/SFTP</TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="webhook" className="pt-4 space-y-4">
+                        <p className="text-sm text-muted-foreground">Reciba facturas instantáneamente a través de un endpoint HTTP POST.</p>
+                        <div>
+                            <Label htmlFor="webhook-url" className="text-muted-foreground">Endpoint Webhook Activo</Label>
+                            <div className="flex items-center gap-2">
+                                <Input id="webhook-url" readOnly value={webhookUrl} />
+                                <Button variant="outline" size="icon" onClick={() => copyToClipboard(webhookUrl)}>
+                                <Copy className="h-4 w-4" />
+                                </Button>
+                            </div>
+                        </div>
+                    </TabsContent>
+                    <TabsContent value="api" className="pt-4">
+                        <p className="text-sm text-muted-foreground">Configure el sistema para consultar periódicamente un endpoint de su API.</p>
+                        {/* Aquí irían los campos para configurar API */}
+                    </TabsContent>
+                    <TabsContent value="db" className="pt-4">
+                        <p className="text-sm text-muted-foreground">Conéctese directamente a su base de datos para leer facturas pendientes.</p>
+                         {/* Aquí irían los campos para configurar DB */}
+                    </TabsContent>
+                     <TabsContent value="folder" className="pt-4">
+                        <p className="text-sm text-muted-foreground">Monitoree una carpeta local, de red, o FTP/SFTP en busca de nuevos archivos.</p>
+                         {/* Aquí irían los campos para configurar carpetas */}
+                    </TabsContent>
+                     <TabsContent value="ftp" className="pt-4">
+                        <p className="text-sm text-muted-foreground">Sincronice archivos de facturas desde un servidor FTP o SFTP.</p>
+                         {/* Aquí irían los campos para configurar FTP/SFTP */}
+                    </TabsContent>
+                </Tabs>
+            </CardContent>
         </Card>
+      </div>
 
-        <Card className="lg:col-span-2">
+       <Card>
           <CardHeader>
-            <CardTitle>Automatización</CardTitle>
+            <CardTitle>Automatización de Envío</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
             <div className="flex items-center justify-between rounded-lg border p-4">
@@ -192,7 +222,6 @@ export default function MovementsPage() {
             </div>
           </CardContent>
         </Card>
-      </div>
 
       <Card>
         <CardHeader>
