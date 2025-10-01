@@ -118,7 +118,7 @@ export default function SettingsPage() {
 
     function onSubmit(values: z.infer<typeof settingsSchema>) {
         console.log(values)
-        // Lógica para guardar en Supabase aquí
+        // Lógica para guardar en Prisma aquí
         toast({
             title: "Configuración Guardada",
             description: "Sus cambios han sido guardados exitosamente.",
