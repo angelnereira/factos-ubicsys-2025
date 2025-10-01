@@ -168,8 +168,8 @@ export default function SettingsPage() {
                                 <TabsTrigger value="prod">Producción</TabsTrigger>
                             </TabsList>
                             <TabsContent value="demo" className="space-y-6 pt-4">
-                                <FormField control={form.control} name="demoTokenEmpresa" render={({ field }) => (<FormItem><FormLabel>Token Empresa</FormLabel><FormControl><Input type="password" placeholder="••••••••••••" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                                <FormField control={form.control} name="demoTokenPassword" render={({ field }) => (<FormItem><FormLabel>Token Password</FormLabel><FormControl><Input type="password" placeholder="••••••••••••" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="demoTokenEmpresa" render={({ field }) => (<FormItem><FormLabel>Token Empresa</FormLabel><FormControl><Input type="text" placeholder="Ingrese su token de empresa" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="demoTokenPassword" render={({ field }) => (<FormItem><FormLabel>Token Password</FormLabel><FormControl><Input type="text" placeholder="Ingrese su token password" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormItem>
                                     <FormLabel>URL</FormLabel>
                                     <FormControl><Input readOnly value="https://demoemision.thefactoryhka.com.pa/ws/obj/v1.0/Service.svc" /></FormControl>
@@ -185,8 +185,8 @@ export default function SettingsPage() {
                                 </div>
                             </TabsContent>
                             <TabsContent value="prod" className="space-y-6 pt-4">
-                                <FormField control={form.control} name="prodTokenEmpresa" render={({ field }) => (<FormItem><FormLabel>Token Empresa</FormLabel><FormControl><Input type="password" placeholder="••••••••••••" {...field} /></FormControl><FormMessage /></FormItem>)} />
-                                <FormField control={form.control} name="prodTokenPassword" render={({ field }) => (<FormItem><FormLabel>Token Password</FormLabel><FormControl><Input type="password" placeholder="••••••••••••" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="prodTokenEmpresa" render={({ field }) => (<FormItem><FormLabel>Token Empresa</FormLabel><FormControl><Input type="text" placeholder="Ingrese su token de empresa" {...field} /></FormControl><FormMessage /></FormItem>)} />
+                                <FormField control={form.control} name="prodTokenPassword" render={({ field }) => (<FormItem><FormLabel>Token Password</FormLabel><FormControl><Input type="text" placeholder="Ingrese su token password" {...field} /></FormControl><FormMessage /></FormItem>)} />
                                 <FormItem>
                                     <FormLabel>URL</FormLabel>
                                     <FormControl><Input readOnly value="https://emision.thefactoryhka.com.pa/ws/obj/v1.0/Service.svc" /></FormControl>
