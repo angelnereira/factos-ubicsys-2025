@@ -2,7 +2,8 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FileText, Gauge, Search, Settings, FileQuestion, FileBarChart2, Ban, History } from "lucide-react"
+import { FileText, Gauge, Settings, FileQuestion, FileBarChart2, Ban, History, Loader2 } from "lucide-react"
+import { useFolios } from "@/app/lib/folios-context"
 
 import {
   Sidebar,
@@ -14,12 +15,12 @@ import {
   SidebarFooter,
 } from "@/components/ui/sidebar"
 import { Separator } from "@/components/ui/separator"
-import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardDescription, CardHeader } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 
 export function AppSidebar() {
   const pathname = usePathname()
+  const { folios, isLoading } = useFolios();
 
   const isActive = (path: string) => pathname === path || (path !== '/dashboard' && pathname.startsWith(path))
 
@@ -29,7 +30,7 @@ export function AppSidebar() {
     { href: "/dashboard/invoices/new", icon: FileText, label: "Nueva Factura" },
     { href: "/dashboard/invoices/status", icon: FileQuestion, label: "Estado de Factura" },
     { href: "/dashboard/invoices/cancel", icon: Ban, label: "Cancelar Factura" },
-    { href: "/dashboard/consult/ruc", icon: Search, label: "Consulta RUC/DV" },
+    { href: "/dashboard/consult/ruc", icon: FileQuestion, label: "Consulta RUC/DV" },
   ];
 
   return (
@@ -65,7 +66,9 @@ export function AppSidebar() {
             <CardDescription>Folios Restantes</CardDescription>
           </CardHeader>
           <CardContent className="p-4 pt-0">
-             <div className="text-3xl font-bold">4,821</div>
+             <div className="text-3xl font-bold">
+               {isLoading ? <Loader2 className="h-7 w-7 animate-spin" /> : new Intl.NumberFormat('es-PA').format(folios)}
+              </div>
           </CardContent>
         </Card>
         <Separator className="my-4"/>

@@ -9,11 +9,12 @@ import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Switch } from "@/components/ui/switch"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { MoreHorizontal, Copy, RefreshCw, Send, CheckCircle, AlertTriangle, Clock, XCircle, FileDown, PlusCircle, Server, Database, FolderOpen,Webhook } from "lucide-react"
+import { MoreHorizontal, Copy, RefreshCw, Send, CheckCircle, AlertTriangle, Clock, XCircle, FileDown, PlusCircle, Server, Database, FolderOpen,Webhook, Loader2 } from "lucide-react"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
 import { type Movement, type MovementStatus } from "@/app/lib/definitions"
 import { useToast } from "@/hooks/use-toast"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { useFolios } from "@/app/lib/folios-context"
 
 const mockMovements: Movement[] = [
   { id: "MVT-001", invoiceId: "INV-101", timestamp: new Date(), status: "Timbrada" },
@@ -77,6 +78,7 @@ function MovementActions({ movement }: { movement: Movement }) {
 export default function MovementsPage() {
   const [isAutoSendOn, setIsAutoSendOn] = useState(true);
   const { toast } = useToast()
+  const { folios, isLoading: isLoadingFolios } = useFolios();
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -117,7 +119,9 @@ export default function MovementsPage() {
           </div>
           <div className="flex flex-col gap-2 p-4 rounded-lg bg-secondary/50">
             <span className="text-muted-foreground">Folios Restantes</span>
-            <span className="font-semibold">4,821</span>
+            <span className="font-semibold h-5">
+              {isLoadingFolios ? <Loader2 className="h-4 w-4 animate-spin" /> : new Intl.NumberFormat('es-PA').format(folios)}
+            </span>
           </div>
           <div className="flex flex-col gap-2 p-4 rounded-lg bg-secondary/50">
             <span className="text-muted-foreground">Latencia Promedio</span>
