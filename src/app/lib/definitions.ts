@@ -1,3 +1,4 @@
+
 export type InvoiceStatus = 'Paid' | 'Pending' | 'Overdue' | 'Canceled';
 
 export type Invoice = {
@@ -8,3 +9,12 @@ export type Invoice = {
   status: InvoiceStatus;
   amount: number;
 };
+
+export type MovementStatus = 'Recibida' | 'En proceso' | 'Enviada' | 'Timbrada' | 'Error';
+
+export type Movement = {
+  id: string;
+  invoiceId: string;
+  timestamp: Date;
+  status: MovementStatus;
+}
