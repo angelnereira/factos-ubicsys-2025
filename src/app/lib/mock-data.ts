@@ -1,0 +1,60 @@
+import type { Invoice } from './definitions';
+
+export const invoices: Invoice[] = [
+  {
+    id: 'INV-001',
+    customerName: 'Global Tech Inc.',
+    ruc: '12345678-9',
+    date: '2023-10-26',
+    status: 'Paid',
+    amount: 250.00,
+  },
+  {
+    id: 'INV-002',
+    customerName: 'Innovate Solutions',
+    ruc: '98765432-1',
+    date: '2023-10-25',
+    status: 'Pending',
+    amount: 150.75,
+  },
+  {
+    id: 'INV-003',
+    customerName: 'Synergy Corp',
+    ruc: '11223344-5',
+    date: '2023-09-15',
+    status: 'Overdue',
+    amount: 320.50,
+  },
+  {
+    id: 'INV-004',
+    customerName: 'Apex Industries',
+    ruc: '55667788-9',
+    date: '2023-10-20',
+    status: 'Paid',
+    amount: 450.00,
+  },
+  {
+    id: 'INV-005',
+    customerName: 'Quantum Systems',
+    ruc: '99887766-5',
+    date: '2023-10-27',
+    status: 'Pending',
+    amount: 50.25,
+  },
+  {
+    id: 'INV-006',
+    customerName: 'Stellar Services',
+    ruc: '66554433-2',
+    date: '2023-10-28',
+    status: 'Pending',
+    amount: 899.99,
+  },
+  {
+    id: 'INV-007',
+    customerName: 'Dynamic Dynamics',
+    ruc: '22334455-6',
+    date: '2023-08-01',
+    status: 'Canceled',
+    amount: 120.00,
+  },
+];
