@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FileText, Gauge, Search, Settings, FileQuestion, FileBarChart2 } from "lucide-react"
+import { FileText, Gauge, Search, Settings, FileQuestion, FileBarChart2, Ban } from "lucide-react"
 
 import {
   Sidebar,
@@ -27,6 +27,7 @@ export function AppSidebar() {
     { href: "/dashboard", icon: Gauge, label: "Principal" },
     { href: "/dashboard/invoices/new", icon: FileText, label: "Nueva Factura" },
     { href: "/dashboard/invoices/status", icon: FileQuestion, label: "Estado de Factura" },
+    { href: "/dashboard/invoices/cancel", icon: Ban, label: "Cancelar Factura" },
     { href: "/dashboard/consult/ruc", icon: Search, label: "Consulta RUC/DV" },
   ];
 

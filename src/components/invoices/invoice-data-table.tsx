@@ -23,6 +23,83 @@ import {
 } from "@/components/ui/table"
 import { type Invoice } from "@/app/lib/definitions"
 import { Card } from "../ui/card"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import { Textarea } from "@/components/ui/textarea"
+import { Label } from "@/components/ui/label"
+import { useToast } from "@/hooks/use-toast"
+
+
+function CancelInvoiceDialog({ invoiceId }: { invoiceId: string }) {
+  const [reason, setReason] = React.useState("")
+  const [isOpen, setIsOpen] = React.useState(false)
+  const { toast } = useToast()
+
+  const handleCancel = () => {
+    if (!reason) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Debe proporcionar un motivo para la cancelación.",
+      })
+      return
+    }
+    console.log(`Cancelando factura ${invoiceId} por el motivo: ${reason}`)
+    toast({
+      title: "Solicitud Enviada",
+      description: `Se ha enviado la solicitud para cancelar la factura ${invoiceId}.`,
+    })
+    setIsOpen(false)
+    setReason("")
+  }
+
+  return (
+    <AlertDialog open={isOpen} onOpenChange={setIsOpen}>
+      <AlertDialogTrigger asChild>
+        <DropdownMenuItem
+          onSelect={(e) => e.preventDefault()}
+          className="focus:bg-destructive/80 focus:text-destructive-foreground text-destructive"
+        >
+          <Ban className="mr-2 h-4 w-4" />
+          <span>Cancelar Factura</span>
+        </DropdownMenuItem>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>¿Está seguro que desea cancelar la factura?</AlertDialogTitle>
+          <AlertDialogDescription>
+            Esta acción no se puede deshacer. La factura <span className="font-bold">{invoiceId}</span> será enviada para su anulación a HKA.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <div className="grid w-full gap-2">
+            <Label htmlFor="reason">Motivo de la cancelación</Label>
+            <Textarea 
+                id="reason"
+                placeholder="Escriba aquí el motivo..."
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
+            />
+        </div>
+        <AlertDialogFooter>
+          <AlertDialogCancel onClick={() => setReason("")}>Cerrar</AlertDialogCancel>
+          <AlertDialogAction onClick={handleCancel} disabled={!reason}>
+            Sí, cancelar factura
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
+  )
+}
+
 
 function InvoiceActions({ invoice }: { invoice: Invoice }) {
   return (
@@ -48,10 +125,7 @@ function InvoiceActions({ invoice }: { invoice: Invoice }) {
           <span>Descargar XML</span>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem className="focus:bg-destructive/80 focus:text-destructive-foreground text-destructive">
-          <Ban className="mr-2 h-4 w-4" />
-          <span>Cancelar Factura</span>
-        </DropdownMenuItem>
+        <CancelInvoiceDialog invoiceId={invoice.id} />
       </DropdownMenuContent>
     </DropdownMenu>
   )
@@ -91,6 +165,14 @@ function InvoiceStatusBadge({ status }: { status: Invoice["status"] }) {
 
 
 export function InvoiceDataTable({ data }: { data: Invoice[] }) {
+  if (!data || data.length === 0) {
+    return (
+      <Card className="flex items-center justify-center h-64">
+        <p className="text-muted-foreground">No se encontraron facturas.</p>
+      </Card>
+    );
+  }
+
   return (
     <Card>
       <Table>
