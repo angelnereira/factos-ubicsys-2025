@@ -12,10 +12,10 @@ import { Send } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 
 const invoiceSchema = z.object({
-  customerName: z.string().min(2, { message: "Customer name must be at least 2 characters." }),
-  ruc: z.string().min(5, { message: "RUC must be at least 5 characters." }),
+  customerName: z.string().min(2, { message: "El nombre del cliente debe tener al menos 2 caracteres." }),
+  ruc: z.string().min(5, { message: "El RUC debe tener al menos 5 caracteres." }),
   description: z.string().optional(),
-  amount: z.coerce.number().positive({ message: "Amount must be a positive number." }),
+  amount: z.coerce.number().positive({ message: "El monto debe ser un número positivo." }),
   demoMode: z.boolean().default(true),
 })
 
@@ -35,8 +35,8 @@ export default function NewInvoicePage() {
   function onSubmit(values: z.infer<typeof invoiceSchema>) {
     console.log(values)
     toast({
-      title: "Invoice Submitted",
-      description: `Invoice for ${values.customerName} sent to HKA in ${values.demoMode ? 'demo' : 'production'} mode.`,
+      title: "Factura Enviada",
+      description: `Factura para ${values.customerName} enviada a HKA en modo ${values.demoMode ? 'demostración' : 'producción'}.`,
     })
     form.reset();
   }
@@ -45,8 +45,8 @@ export default function NewInvoicePage() {
     <div className="flex justify-center">
       <Card className="w-full max-w-2xl">
         <CardHeader>
-          <CardTitle>Create New Invoice</CardTitle>
-          <CardDescription>Fill in the details below to submit a new invoice to HKA.</CardDescription>
+          <CardTitle>Crear Nueva Factura</CardTitle>
+          <CardDescription>Complete los detalles a continuación para enviar una nueva factura a HKA.</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -56,7 +56,7 @@ export default function NewInvoicePage() {
                 name="customerName"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Customer Name</FormLabel>
+                    <FormLabel>Nombre del Cliente</FormLabel>
                     <FormControl><Input placeholder="Global Tech Inc." {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
@@ -78,7 +78,7 @@ export default function NewInvoicePage() {
                 name="amount"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Amount</FormLabel>
+                    <FormLabel>Monto</FormLabel>
                     <FormControl><Input type="number" placeholder="250.00" {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
@@ -89,8 +89,8 @@ export default function NewInvoicePage() {
                 name="description"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Description</FormLabel>
-                    <FormControl><Textarea placeholder="Invoice for services rendered..." {...field} /></FormControl>
+                    <FormLabel>Descripción</FormLabel>
+                    <FormControl><Textarea placeholder="Factura por servicios prestados..." {...field} /></FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -101,15 +101,15 @@ export default function NewInvoicePage() {
                 render={({ field }) => (
                   <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
                     <div className="space-y-0.5">
-                      <FormLabel>Demo Mode</FormLabel>
-                      <FormDescription>Submit to the HKA demo environment for testing.</FormDescription>
+                      <FormLabel>Modo de Demostración</FormLabel>
+                      <FormDescription>Enviar al ambiente de demostración de HKA para pruebas.</FormDescription>
                     </div>
                     <FormControl><Switch checked={field.value} onCheckedChange={field.onChange} /></FormControl>
                   </FormItem>
                 )}
               />
               <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
-                <Send className="mr-2 h-4 w-4" /> Submit to HKA
+                <Send className="mr-2 h-4 w-4" /> Enviar a HKA
               </Button>
             </form>
           </Form>

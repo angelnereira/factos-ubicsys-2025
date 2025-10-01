@@ -18,24 +18,24 @@ export function AppHeader() {
         <div className="flex w-full items-center justify-end gap-4">
             <Button variant="ghost" size="icon" className="rounded-full">
                 <Bell className="h-5 w-5" />
-                <span className="sr-only">Toggle notifications</span>
+                <span className="sr-only">Alternar notificaciones</span>
             </Button>
             <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                     <Button variant="secondary" size="icon" className="rounded-full">
                         <User className="h-5 w-5" />
-                        <span className="sr-only">Toggle user menu</span>
+                        <span className="sr-only">Alternar menú de usuario</span>
                     </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                    <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                    <DropdownMenuLabel>Mi Cuenta</DropdownMenuLabel>
                     <DropdownMenuSeparator />
                      <DropdownMenuItem asChild>
-                       <Link href="/dashboard/settings">Settings</Link>
+                       <Link href="/dashboard/settings">Configuración</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Support</DropdownMenuItem>
+                    <DropdownMenuItem>Soporte</DropdownMenuItem>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>Logout</DropdownMenuItem>
+                    <DropdownMenuItem>Cerrar Sesión</DropdownMenuItem>
                 </DropdownMenuContent>
             </DropdownMenu>
         </div>

@@ -26,12 +26,12 @@ export default function RucConsultationPage() {
         
         setTimeout(() => {
             if (ruc === "error") {
-                setError("RUC not found or invalid.")
+                setError("RUC no encontrado o inválido.")
             } else {
                 setRucResult({
                     name: "Global Tech Inc.",
                     dv: "9",
-                    status: "Active"
+                    status: "Activo"
                 })
             }
             setIsLoading(false)
@@ -42,8 +42,8 @@ export default function RucConsultationPage() {
         <div className="flex justify-center">
             <Card className="w-full max-w-md">
                 <CardHeader>
-                    <CardTitle>RUC/DV Consultation</CardTitle>
-                    <CardDescription>Enter a RUC to consult taxpayer information.</CardDescription>
+                    <CardTitle>Consulta de RUC/DV</CardTitle>
+                    <CardDescription>Ingrese un RUC para consultar la información del contribuyente.</CardDescription>
                 </CardHeader>
                 <form onSubmit={handleConsult}>
                     <CardContent className="space-y-4">
@@ -60,7 +60,7 @@ export default function RucConsultationPage() {
                     <CardFooter className="flex-col items-start gap-4">
                         <Button type="submit" className="w-full" disabled={isLoading || !ruc}>
                             {isLoading ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <Search className="mr-2 h-4 w-4" />}
-                            Consult
+                            Consultar
                         </Button>
                         {error && (
                             <div className="w-full rounded-lg border border-destructive/50 bg-destructive/10 p-4 text-center">
@@ -69,10 +69,10 @@ export default function RucConsultationPage() {
                         )}
                         {rucResult && (
                             <div className="w-full rounded-lg border p-4 space-y-2">
-                                <h3 className="font-semibold text-center">Consultation Result</h3>
-                                <div className="text-sm"><strong>Name:</strong> {rucResult.name}</div>
+                                <h3 className="font-semibold text-center">Resultado de la Consulta</h3>
+                                <div className="text-sm"><strong>Nombre:</strong> {rucResult.name}</div>
                                 <div className="text-sm"><strong>DV:</strong> {rucResult.dv}</div>
-                                <div className="text-sm"><strong>Status:</strong> {rucResult.status}</div>
+                                <div className="text-sm"><strong>Estado:</strong> {rucResult.status}</div>
                             </div>
                         )}
                     </CardFooter>

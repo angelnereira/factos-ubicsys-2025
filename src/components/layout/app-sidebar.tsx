@@ -24,10 +24,10 @@ export function AppSidebar() {
   const isActive = (path: string) => pathname === path || (path !== '/dashboard' && pathname.startsWith(path))
 
   const navItems = [
-    { href: "/dashboard", icon: Gauge, label: "Dashboard" },
-    { href: "/dashboard/invoices/new", icon: FileText, label: "New Invoice" },
-    { href: "/dashboard/invoices/status", icon: FileQuestion, label: "Invoice Status" },
-    { href: "/dashboard/consult/ruc", icon: Search, label: "RUC/DV Consultation" },
+    { href: "/dashboard", icon: Gauge, label: "Principal" },
+    { href: "/dashboard/invoices/new", icon: FileText, label: "Nueva Factura" },
+    { href: "/dashboard/invoices/status", icon: FileQuestion, label: "Estado de Factura" },
+    { href: "/dashboard/consult/ruc", icon: Search, label: "Consulta RUC/DV" },
   ];
 
   return (
@@ -60,7 +60,7 @@ export function AppSidebar() {
       <SidebarFooter className="p-2">
         <Card className="bg-sidebar-accent/50 border-sidebar-border text-sidebar-foreground">
           <CardHeader className="p-4">
-            <CardDescription>Remaining Folios</CardDescription>
+            <CardDescription>Folios Restantes</CardDescription>
           </CardHeader>
           <CardContent className="p-4 pt-0">
              <div className="text-3xl font-bold">4,821</div>
@@ -75,7 +75,7 @@ export function AppSidebar() {
                 >
                     <Link href="/dashboard/settings">
                         <Settings />
-                        Settings
+                        Configuración
                     </Link>
                 </SidebarMenuButton>
             </SidebarMenuItem>
