@@ -25,7 +25,7 @@ export function AppSidebar() {
 
   const navItems = [
     { href: "/dashboard", icon: Gauge, label: "Principal" },
-    { href: "/dashboard/movements", icon: History, label: "Movimientos" },
+    { href: "/dashboard/movements", icon: History, label: "Monitoreo y Automatización" },
     { href: "/dashboard/invoices/new", icon: FileText, label: "Nueva Factura" },
     { href: "/dashboard/invoices/status", icon: FileQuestion, label: "Estado de Factura" },
     { href: "/dashboard/invoices/cancel", icon: Ban, label: "Cancelar Factura" },
