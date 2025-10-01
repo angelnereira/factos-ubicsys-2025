@@ -1,4 +1,4 @@
-# Firebase Studio
+npx prisma generate --no-engine# Firebase Studio
 
 This is a NextJS starter in Firebase Studio.
 
