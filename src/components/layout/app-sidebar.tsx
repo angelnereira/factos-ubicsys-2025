@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { FileText, Gauge, Search, Settings, FileQuestion, FileBarChart2, Ban } from "lucide-react"
+import { FileText, Gauge, Search, Settings, FileQuestion, FileBarChart2, Ban, History } from "lucide-react"
 
 import {
   Sidebar,
@@ -25,6 +25,7 @@ export function AppSidebar() {
 
   const navItems = [
     { href: "/dashboard", icon: Gauge, label: "Principal" },
+    { href: "/dashboard/movements", icon: History, label: "Movimientos" },
     { href: "/dashboard/invoices/new", icon: FileText, label: "Nueva Factura" },
     { href: "/dashboard/invoices/status", icon: FileQuestion, label: "Estado de Factura" },
     { href: "/dashboard/invoices/cancel", icon: Ban, label: "Cancelar Factura" },
