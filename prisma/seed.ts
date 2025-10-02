@@ -1,34 +1,45 @@
-import { PrismaClient } from '@prisma/client'
+import { PrismaClient } from '../src/generated/client'
 const prisma = new PrismaClient()
 
 async function main() {
   console.log(`Start seeding ...`)
-  await prisma.configuracion.create({
-    data: {
-      nombre_empresa: "Empresa Demo",
-      ruc: "1234567890",
-      razon_social: "Empresa Demo S.A."
-    }
-  })
+  const existingConfig = await prisma.configuracion.findFirst();
+  if (!existingConfig) {
+    await prisma.configuracion.create({
+      data: {
+        nombre_empresa: "Empresa Demo",
+        ruc: "1234567890",
+        razon_social: "Empresa Demo S.A."
+      }
+    })
+  }
 
-  await prisma.conexionHKA.createMany({
-    data: [
-      {
+  const demoConnection = await prisma.conexionHKA.findUnique({ where: { ambiente: 'demo' } });
+  if (!demoConnection) {
+    await prisma.conexionHKA.create({
+      data: {
         ambiente: "demo",
         token_empresa: "TOKENEMPRESA",
         token_password: "TOKENPASSWORD",
         url_base: "https://demoemision.thefactoryhka.com.pa/ws/obj/v1.0/Service.svc",
         activo: true
-      },
-      {
+      }
+    });
+  }
+
+  const prodConnection = await prisma.conexionHKA.findUnique({ where: { ambiente: 'produccion' } });
+  if (!prodConnection) {
+    await prisma.conexionHKA.create({
+      data: {
         ambiente: "produccion",
         token_empresa: "",
         token_password: "",
         url_base: "https://emision.thefactoryhka.com.pa/ws/obj/v1.0/Service.svc",
         activo: false
       }
-    ]
-  })
+    });
+  }
+
   console.log(`Seeding finished.`)
 }
 
